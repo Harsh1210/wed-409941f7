@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Pork Bun Investigation · Round Two</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..800&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens : navy field, yellow line ---------- */
+:root{
+  --navy:#0a2544;
+  --surface:#123159;
+  --surface-2:#1d4778;
+  --rail:#2f5f95;
+  --sun:#ffd23f;       /* the line, the progress, the score */
+  --sky:#5cc6f5;       /* secondary blue accent */
+  --steam:#eaf3ff;
+  --muted:#93b6d9;
+  --go:#8ce0b4;
+
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --r:14px;
+  --pad:clamp(18px,5vw,28px);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--navy);
+  color:var(--steam);
+  font-family:var(--body);
+  font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(58vw 40vw at 10% -6%, rgba(255,210,63,.16), transparent 62%),
+    radial-gradient(54vw 44vw at 98% 102%, rgba(92,198,245,.16), transparent 62%);
+}
+.wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:0 var(--pad) 72px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:6px}
+
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sun);margin:0 0 14px}
+.display{font-family:var(--display);font-weight:700;font-variation-settings:"SOFT" 40,"WONK" 1;line-height:1.02;letter-spacing:-.02em;margin:0}
+
+/* ---------- 1. the ask ---------- */
+.ask{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:52px 0}
+.bao{width:92px;height:92px;margin:0 0 24px;display:block}
+.wisp{transform-origin:center;animation:rise 3.4s ease-in-out infinite}
+.wisp:nth-child(2){animation-delay:.5s}
+.wisp:nth-child(3){animation-delay:1s}
+@keyframes rise{0%{opacity:0;transform:translateY(4px) scaleY(.8)}35%{opacity:.85}100%{opacity:0;transform:translateY(-13px) scaleY(1.25)}}
+
+.ask__title{font-size:clamp(36px,10vw,58px)}
+.ask__title em{font-style:italic;color:var(--sun);font-variation-settings:"SOFT" 60,"WONK" 1}
+.ask__body{color:var(--muted);font-size:17px;max-width:36ch;margin:22px 0 0}
+.ask__body strong{color:var(--steam);font-weight:600}
+
+.prev{margin:26px 0 0;padding:14px 18px;border-left:4px solid var(--sun);background:rgba(255,210,63,.10);border-radius:0 10px 10px 0}
+.prev__label{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sun);margin:0 0 4px}
+.prev__text{margin:0;font-size:14.5px;color:var(--muted)}
+.prev__text em{color:var(--steam);font-style:normal;font-weight:600}
+
+.plan{margin:32px 0 0;border:1px solid var(--surface-2);border-radius:var(--r);background:var(--surface);padding:22px}
+.plan__label{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sky);margin:0 0 18px}
+.plan__list{list-style:none;margin:0;padding:0}
+.plan__item{position:relative;padding:0 0 16px 30px;font-size:14.5px}
+.plan__item:last-child{padding-bottom:0}
+.plan__item::before{content:"";position:absolute;left:5px;top:16px;bottom:-2px;width:3px;background:var(--sun);opacity:.55}
+.plan__item:last-child::before{display:none}
+.plan__item::after{content:"";position:absolute;left:0;top:7px;width:13px;height:13px;border-radius:50%;border:3px solid var(--sun);background:var(--navy)}
+.plan__item:last-child::after{background:var(--sun)}
+.plan__item b{font-weight:600;color:var(--steam)}
+.plan__item span{color:var(--muted)}
+
+.ask__buttons{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:34px;min-height:66px}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:var(--body);font-size:15px;font-weight:700;
+  border:0;border-radius:999px;padding:15px 30px;cursor:pointer;
+  background:var(--sun);color:#0a2544;
+  transition:transform .22s cubic-bezier(.2,.9,.3,1.3),box-shadow .2s ease,background .2s ease,color .2s ease;
+  box-shadow:0 8px 26px -12px rgba(255,210,63,.95);transform-origin:center;
+}
+.btn:hover{box-shadow:0 14px 32px -12px rgba(255,210,63,1)}
+.btn--ghost{background:transparent;color:var(--sky);border:1.5px solid var(--rail);box-shadow:none;padding:14px 24px;font-weight:600}
+.btn--ghost:hover{color:var(--steam);border-color:var(--sky);box-shadow:none}
+.btn--small{padding:12px 22px;font-size:14px}
+.btn[disabled]{opacity:.38;cursor:not-allowed;box-shadow:none}
+#no{position:relative;transition:transform .3s cubic-bezier(.2,.9,.3,1.3),font-size .3s ease,opacity .3s ease}
+
+.linkish{background:none;border:0;padding:0;cursor:pointer;font-family:var(--body);font-size:12.5px;color:var(--sky);text-decoration:underline;text-underline-offset:3px}
+.linkish:hover{color:var(--sun)}
+
+/* ---------- 2. the line ---------- */
+.journey{display:none;padding-top:48px}
+.journey.is-on{display:block}
+.journey__title{font-size:clamp(27px,7vw,38px);margin-bottom:10px}
+.journey__meta{color:var(--muted);font-size:12.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;margin:0 0 10px}
+.journey__meta span{color:var(--sun)}
+.journey__tools{margin:0 0 34px;display:flex;gap:18px;flex-wrap:wrap}
+
+.stops{list-style:none;margin:0;padding:0}
+.stop{position:relative;padding:0 0 30px 54px;border-radius:12px}
+.stop::before{content:"";position:absolute;left:15px;top:8px;bottom:-2px;width:4px;background:var(--rail);border-radius:2px;transition:background .5s ease}
+.stop:last-child::before{bottom:auto;height:22px}
+.stop.is-done::before{background:var(--sun)}
+.stop.is-current::before{background:linear-gradient(var(--sun) 22px,var(--rail) 22px)}
+
+.stop__dot{
+  position:absolute;left:6px;top:8px;width:22px;height:22px;border-radius:50%;
+  border:4px solid var(--rail);background:var(--navy);
+  transition:border-color .4s ease,background .4s ease,transform .4s ease;
+  display:grid;place-items:center
+}
+.stop.is-done .stop__dot{border-color:var(--sun);background:var(--sun)}
+.stop.is-done .stop__dot::after{content:"";width:5px;height:9px;margin-top:-2px;border:solid #0a2544;border-width:0 2.5px 2.5px 0;transform:rotate(43deg)}
+.stop.is-current .stop__dot{border-color:var(--sun);transform:scale(1.2);animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,210,63,.55)}70%{box-shadow:0 0 0 13px rgba(255,210,63,0)}100%{box-shadow:0 0 0 0 rgba(255,210,63,0)}}
+
+.stop__time{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);display:block;margin-bottom:5px}
+.stop.is-current .stop__time{color:var(--sun)}
+.stop__name{font-family:var(--display);font-weight:600;font-variation-settings:"SOFT" 30,"WONK" 1;font-size:23px;line-height:1.2;letter-spacing:-.01em;margin:0}
+.stop__where{font-size:13px;color:var(--muted);margin:5px 0 0}
+
+.stop.is-locked{opacity:.3}
+.stop.is-locked .stop__body,.stop.is-done .stop__body{display:none}
+
+/* revisiting a finished stop */
+.stop.is-done{cursor:pointer}
+.stop.is-done:hover,.stop.is-done:focus-visible{background:rgba(92,198,245,.07)}
+.stop__revisit{display:none;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sky);margin:8px 0 0}
+.stop.is-done .stop__revisit{display:block}
+
+.stop__body{margin-top:16px;background:var(--surface);border:1px solid var(--surface-2);border-radius:var(--r);padding:20px;animation:slide .5s cubic-bezier(.2,.7,.3,1) both}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.stop__note{margin:0;font-size:15.5px;color:#d5e6f7}
+.stop__note + .stop__note{margin-top:12px}
+.stop__note em{color:var(--sun);font-style:normal;font-weight:600}
+.stop__foot{margin-top:20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+
+.stop__score{display:none;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sun)}
+.stop.is-done .stop__score.has-score{display:block}
+
+/* ---------- rating ---------- */
+.rate{margin-top:20px;padding-top:18px;border-top:1px solid var(--surface-2)}
+.rate__label{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sky);margin:0 0 12px}
+.rate__row{display:flex;gap:10px}
+.rate__btn{width:40px;height:40px;border-radius:50%;cursor:pointer;padding:0;border:2px solid var(--rail);background:transparent;font-family:var(--body);font-size:13px;font-weight:700;color:var(--muted);transition:all .18s ease}
+.rate__btn:hover{border-color:var(--sun);color:var(--sun);transform:translateY(-2px)}
+.rate__btn.is-on{background:var(--sun);border-color:var(--sun);color:#0a2544}
+
+/* ---------- finale ---------- */
+.finale{display:none}
+.finale.is-on{display:block;animation:slide .6s cubic-bezier(.2,.7,.3,1) both}
+.verdict{border:1px solid var(--rail);border-radius:var(--r);padding:22px;background:linear-gradient(160deg,rgba(255,210,63,.16),rgba(92,198,245,.10));margin-bottom:26px}
+.verdict__label{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sun);margin:0 0 8px}
+.verdict__name{font-family:var(--display);font-weight:700;font-size:27px;line-height:1.15;margin:0}
+.verdict__sub{color:var(--muted);font-size:14px;margin:8px 0 0}
+.card{border:1px solid var(--surface-2);border-radius:var(--r);background:var(--surface);padding:20px;margin-bottom:26px}
+.card__label{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sky);margin:0 0 14px}
+.board{list-style:none;margin:0;padding:0}
+.board li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--surface-2);font-size:15px}
+.board li:last-child{border-bottom:0}
+.board b{font-weight:500;color:#d5e6f7}
+.board span{font-weight:700;color:var(--sun);font-variant-numeric:tabular-nums}
+.board .past b,.board .past span{color:var(--muted)}
+.finale__title{font-size:clamp(29px,8vw,42px);margin-bottom:16px}
+.finale__body{color:var(--muted);font-size:17px;margin:0 0 26px}
+.finale__body strong{color:var(--steam);font-weight:600}
+.copied{color:var(--go);font-size:14px;font-weight:600;opacity:0;transition:opacity .3s ease}
+.copied.is-on{opacity:1}
+.signoff{margin-top:38px;padding-top:20px;border-top:1px solid var(--surface-2);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ 1. THE ASK ============ -->
+  <section class="ask" id="ask">
+    <svg class="bao" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <g stroke="#ffd23f" stroke-width="2.2" stroke-linecap="round" opacity=".95">
+        <path class="wisp" d="M22 17c3-3.2 0-6.4 2.6-9.6"/>
+        <path class="wisp" d="M32 14c3-3.2 0-6.4 2.6-9.6"/>
+        <path class="wisp" d="M42 17c3-3.2 0-6.4 2.6-9.6"/>
+      </g>
+      <path d="M8 44c0-12.7 10.7-23 24-23s24 10.3 24 23" fill="#eaf3ff"/>
+      <path d="M4 44h56c0 5.5-4.5 10-10 10H14C8.5 54 4 49.5 4 44z" fill="#c9dcf0"/>
+      <path d="M24 25.5c2.6 4.6 2.6 9.2 0 13.8M32 22.6v18M40 25.5c-2.6 4.6-2.6 9.2 0 13.8" stroke="#a9c3dd" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+
+    <p class="eyebrow">The pork bun investigation · Round two</p>
+    <h1 class="display ask__title">Let's go find <em>the one</em>.</h1>
+
+    <div class="prev">
+      <p class="prev__label">Round one · Gallery Place, Chinatown</p>
+      <p class="prev__text">Good. Not unforgettable. Though I'll admit I've thought more about the company than the buns, so the night wasn't wasted.</p>
+    </div>
+
+    <p class="ask__body">
+      There are three more contenders on four blocks of H Street NE.
+      <strong>Wednesday evening.</strong> One long walk, all three, a bookstore first
+      and a bottle of wine after. No reason to rush any of it.
+    </p>
+
+    <div class="plan">
+      <p class="plan__label">The route</p>
+      <ol class="plan__list">
+        <li class="plan__item"><b>6:00 · Wheaton Metro</b><br><span>I'll be waiting at the top of the escalator</span></li>
+        <li class="plan__item"><b>Red Line to NoMa–Gallaudet U</b><br><span>Half an hour underground, just talking</span></li>
+        <li class="plan__item"><b>Solid State Books</b><br><span>600 H St NE · we each find a book, then talk</span></li>
+        <li class="plan__item"><b>Copycat Co.</b><br><span>1110 H St NE · the first bun</span></li>
+        <li class="plan__item"><b>Toki Underground</b><br><span>1234 H St NE · the second</span></li>
+        <li class="plan__item"><b>Maketto</b><br><span>1351 H St NE · the last word</span></li>
+        <li class="plan__item"><b>Project Hail Mary + wine</b><br><span>Low light, red wine, nowhere else to be</span></li>
+      </ol>
+    </div>
+
+    <div class="ask__buttons">
+      <button class="btn" id="yes">Yes</button>
+      <button class="btn btn--ghost" id="no">I can't</button>
+    </div>
+  </section>
+
+  <!-- ============ 2. THE LINE ============ -->
+  <section class="journey" id="journey" aria-live="polite">
+    <p class="eyebrow">Round two · in progress</p>
+    <h2 class="display journey__title">Seven stops. Wear something cute — I'll notice.</h2>
+    <p class="journey__meta" id="meta">Wednesday, Aug 12 · <span>Red Line</span> → H St NE</p>
+    <p class="journey__tools">
+      <button class="linkish" id="backToPlan">← Back to the plan</button>
+      <button class="linkish" id="reset">Start the hunt over</button>
+    </p>
+    <ol class="stops" id="stops"></ol>
+
+    <div class="finale" id="finale">
+      <div class="verdict">
+        <p class="verdict__label">New reigning champion</p>
+        <h3 class="verdict__name" id="champ">—</h3>
+        <p class="verdict__sub" id="champSub"></p>
+      </div>
+
+      <div class="card">
+        <p class="card__label">Running scoreboard</p>
+        <ul class="board" id="board"></ul>
+      </div>
+
+      <h2 class="display finale__title">So. Wednesday?</h2>
+      <p class="finale__body">
+        Six o'clock at Wheaton. I'll be at the top of the escalator,
+        and I'll have been there a few minutes early. <strong>Say yes.</strong>
+      </p>
+      <div class="ask__buttons" style="margin-top:0;min-height:0">
+        <button class="btn" id="copy">Copy my answer</button>
+        <button class="btn btn--ghost btn--small" id="backFinale">← Change a score</button>
+        <span class="copied" id="copied">Copied — now go send it.</span>
+      </div>
+      <p class="signoff">
+        <span>Bring your appetite and your opinions. I'll bring everything else.</span>
+        <button class="linkish" id="reset2">Start over</button>
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ================= EDIT THESE ================= */
+const CONFIG = {
+  herName: "",                                // e.g. "Maya" — leave blank to skip
+  dateLine: "Wednesday, Aug 12",
+  roundOne: { name: "Chinatown", score: 3 }   // last hunt's best, carried onto the scoreboard
+};
+/* ============================================== */
+
+const STOPS = [
+  { time:"6:00 PM · Meet", name:"Wheaton Station", where:"Red Line · Georgia Ave & Reedie Dr",
+    notes:[
+      "Top of the escalator. It's 230 feet — the longest in the hemisphere — and takes about three minutes to ride down. That's a long time to stand next to someone you're glad to see. <em>I'm counting on it.</em>",
+      "I'll be early."
+    ], cta:"Board the train" },
+
+  { time:"6:05 PM · Ride", name:"Red Line → NoMa–Gallaudet U", where:"~30 minutes · no transfers",
+    notes:[
+      "One straight shot, half an hour, nothing out the window but dark glass and our own reflections. So we'll talk.",
+      "I've been saving a few things for exactly this stretch."
+    ], cta:"Get off here" },
+
+  { time:"6:50 PM · Warm-up", name:"Solid State Books", where:"600 H St NE · 12 min walk from NoMa",
+    notes:[
+      "Before any eating — we each go find a book. Anything at all, whatever catches you. No rules, no budget, no overthinking it.",
+      "Then we come back and <em>tell each other why</em>. I want to hear you talk about something you love. That's the whole reason for this stop."
+    ], cta:"Head east on H" },
+
+  { time:"7:30 PM · Suspect one", name:"Copycat Co.", where:"1110 H St NE",
+    notes:[
+      "Low light, good music, better cocktails, and pork bao that people single out by name in their reviews.",
+      "Chinatown set the bar at a 3 last round. <em>Let's see.</em>"
+    ], cta:"Two blocks east", rate:true },
+
+  { time:"8:20 PM · Suspect two", name:"Toki Underground", where:"1234 H St NE",
+    notes:[
+      "No sign out front, second floor, fifteen seats at a single counter. We'll be shoulder to shoulder whether we planned on it or not. <em>I planned on it.</em>",
+      "Pork belly bao alongside the ramen it's famous for. The kitchen closes at 9:30, so this is the one stop we keep moving for."
+    ], cta:"One more block", rate:true },
+
+  { time:"9:05 PM · Final boss", name:"Maketto", where:"1351 H St NE",
+    notes:[
+      "Cambodian-Taiwanese, and the bao platter is the one people describe as the best they've ever had. Big claim.",
+      "Last word of the night. Whatever wins here, wins."
+    ], cta:"Call it", rate:true },
+
+  { time:"10:15 PM · Landing", name:"Project Hail Mary + wine", where:"Couch · lights low · no more walking",
+    notes:[
+      "Wine open, lights low, feet up, nowhere left to be. A man wakes alone on a spaceship with no memory and has to save the world.",
+      "And I'm getting the paper tickets, not the ones that live on a phone. <em>You keep every stub you've ever been handed</em> — this one belongs in the collection.",
+      "If you fall asleep on me halfway through, I'm not going to complain."
+    ], cta:"That's the whole evening" }
+];
+
+/* ---------- state (persists in the artifact) ---------- */
+const KEY = "porkbun-hunt-round2";
+let state = { phase:"ask", current:0, scores:{} };
+
+/* Persistence, in order of preference:
+   1. window.storage  — available when running as a Claude artifact
+   2. localStorage    — used when hosted on a normal web server
+   3. memory only     — if both are blocked (private mode, file:// on some browsers) */
+async function save(){
+  const json = JSON.stringify(state);
+  try { if (window.storage){ await window.storage.set(KEY, json); return; } } catch(e){}
+  try { localStorage.setItem(KEY, json); } catch(e){}
+}
+async function load(){
+  try { if (window.storage){
+    const r = await window.storage.get(KEY);
+    return r && r.value ? JSON.parse(r.value) : null;
+  }} catch(e){}
+  try { const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; } catch(e){}
+  return null;
+}
+
+/* ---------- build ---------- */
+const stopsEl = document.getElementById("stops");
+
+STOPS.forEach((s,i)=>{
+  const li = document.createElement("li");
+  li.className = "stop is-locked";
+  li.dataset.i = i;
+  li.innerHTML = `
+    <span class="stop__dot" aria-hidden="true"></span>
+    <span class="stop__time">${s.time}</span>
+    <h3 class="stop__name">${s.name}</h3>
+    <p class="stop__where">${s.where}</p>
+    <p class="stop__score" data-score></p>
+    <p class="stop__revisit">Tap to revisit ↩</p>
+    <div class="stop__body">
+      ${s.notes.map(n=>`<p class="stop__note">${n}</p>`).join("")}
+      ${s.rate ? `
+        <div class="rate">
+          <p class="rate__label">Rate the bun · 1 to 5</p>
+          <div class="rate__row">
+            ${[1,2,3,4,5].map(n=>`<button class="rate__btn" data-n="${n}" aria-label="${n} out of 5">${n}</button>`).join("")}
+          </div>
+        </div>` : ""}
+      <div class="stop__foot">
+        ${i>0 ? `<button class="btn btn--ghost btn--small" data-back>← Back</button>` : ""}
+        <button class="btn btn--small" data-next ${s.rate?"disabled":""}>${s.rate?"Score it first":s.cta}</button>
+      </div>
+    </div>`;
+  stopsEl.appendChild(li);
+});
+
+function paintScore(i,n){
+  const li = stopsEl.children[i];
+  li.querySelectorAll(".rate__btn").forEach(b=>b.classList.toggle("is-on",+b.dataset.n<=n));
+  const next = li.querySelector("[data-next]");
+  next.disabled = false;
+  next.textContent = STOPS[i].cta;
+  const tag = li.querySelector("[data-score]");
+  tag.textContent = `Scored ${n}/5`;
+  tag.classList.add("has-score");
+}
+
+function render(){
+  Array.from(stopsEl.children).forEach((li,i)=>{
+    li.classList.remove("is-locked","is-current","is-done");
+    if (i < state.current){ li.classList.add("is-done"); li.tabIndex = 0; }
+    else if (i === state.current){ li.classList.add("is-current"); li.removeAttribute("tabindex"); }
+    else { li.classList.add("is-locked"); li.removeAttribute("tabindex"); }
+  });
+  Object.entries(state.scores).forEach(([i,n])=>paintScore(+i,n));
+  const done = state.current >= STOPS.length;
+  document.getElementById("finale").classList.toggle("is-on", done);
+  if (done) buildFinale();
+}
+
+function goTo(i, scroll){
+  state.current = Math.max(0, Math.min(i, STOPS.length));
+  save();
+  render();
+  if (scroll !== false){
+    const t = state.current < STOPS.length ? stopsEl.children[state.current] : document.getElementById("finale");
+    t.scrollIntoView({behavior:"smooth", block: state.current < STOPS.length ? "center" : "start"});
+  }
+}
+
+/* ---------- interaction ---------- */
+stopsEl.addEventListener("click", e=>{
+  const r = e.target.closest(".rate__btn");
+  if (r){
+    const i = +r.closest(".stop").dataset.i;
+    state.scores[i] = +r.dataset.n;
+    paintScore(i,+r.dataset.n);
+    save();
+    return;
+  }
+  if (e.target.closest("[data-back]")){ goTo(state.current - 1); return; }
+  const n = e.target.closest("[data-next]");
+  if (n && !n.disabled){ goTo(state.current + 1); return; }
+
+  // tapping a finished stop returns to it
+  const li = e.target.closest(".stop.is-done");
+  if (li) goTo(+li.dataset.i);
+});
+
+stopsEl.addEventListener("keydown", e=>{
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const li = e.target.closest(".stop.is-done");
+  if (li && e.target === li){ e.preventDefault(); goTo(+li.dataset.i); }
+});
+
+/* ---------- finale ---------- */
+function buildFinale(){
+  const rated = STOPS.map((s,i)=> s.rate ? {name:s.name, n:state.scores[i]||0} : null).filter(Boolean);
+  const all = rated.concat([{name:CONFIG.roundOne.name+" (round one)", n:CONFIG.roundOne.score, past:true}]);
+  all.sort((a,b)=>b.n-a.n);
+
+  const top = all[0];
+  const tie = all.filter(r=>r.n===top.n);
+
+  document.getElementById("champ").textContent =
+    tie.length>1 ? tie.map(t=>t.name).join(" & ") : top.name;
+  document.getElementById("champSub").textContent =
+    tie.length>1 ? `A dead heat at ${top.n}/5 — which means we have to do this again. I'm not upset about it.`
+    : top.past ? `${top.n}/5, and Chinatown still holds. Which means a round three. I'll take it.`
+    : `${top.n}/5 — a new best. Chinatown has been beaten.`;
+
+  document.getElementById("board").innerHTML =
+    all.map(r=>`<li class="${r.past?"past":""}"><b>${r.name}</b><span>${r.n}/5</span></li>`).join("");
+}
+
+document.getElementById("copy").addEventListener("click", ()=>{
+  const msg = "Wednesday. Yes. Six o'clock, Wheaton, top of the escalator — don't be too early.";
+  const done = ()=>{
+    const c = document.getElementById("copied");
+    c.classList.add("is-on");
+    setTimeout(()=>c.classList.remove("is-on"), 2600);
+  };
+  if (navigator.clipboard) navigator.clipboard.writeText(msg).then(done).catch(done);
+  else done();
+});
+document.getElementById("backFinale").addEventListener("click", ()=>goTo(STOPS.length - 1));
+
+/* ---------- the ask ---------- */
+const yes = document.getElementById("yes");
+const no  = document.getElementById("no");
+
+function showJourney(){
+  state.phase = "journey"; save();
+  document.getElementById("ask").style.display = "none";
+  document.getElementById("journey").classList.add("is-on");
+  render();
+  window.scrollTo({top:0});
+}
+function showAsk(){
+  state.phase = "ask"; save();
+  document.getElementById("journey").classList.remove("is-on");
+  document.getElementById("ask").style.display = "";
+  window.scrollTo({top:0});
+}
+yes.addEventListener("click", showJourney);
+document.getElementById("backToPlan").addEventListener("click", showAsk);
+
+const excuses = ["I can't","...probably can't","hmm","alright — yes"];
+let dodges = 0;
+function dodge(e){
+  if (dodges >= 3) return;
+  if (e) e.preventDefault();
+  dodges++;
+  no.textContent = excuses[dodges];
+  const x = (Math.random()*110 - 55).toFixed(0);
+  const y = (Math.random()*54 - 27).toFixed(0);
+  no.style.transform = `translate(${x}px, ${y}px) scale(${1 - dodges*.16})`;
+  no.style.fontSize = `${15 - dodges*1.4}px`;
+  no.style.opacity = `${1 - dodges*.18}`;
+  yes.style.transform = `scale(${1 + dodges*.14})`;
+  yes.style.boxShadow = `0 ${10+dodges*6}px ${30+dodges*9}px -12px rgba(255,210,63,1)`;
+  if (dodges >= 3){
+    no.style.transform = "translate(0,0) scale(.82)";
+    no.classList.remove("btn--ghost");
+    no.style.opacity = "1";
+  }
+}
+no.addEventListener("mouseenter", dodge);
+no.addEventListener("click", e=>{
+  if (dodges >= 3){ showJourney(); return; }
+  dodge(e);
+});
+
+/* ---------- reset ---------- */
+function reset(){
+  state = { phase:"ask", current:0, scores:{} };
+  save();
+  stopsEl.querySelectorAll(".rate__btn").forEach(b=>b.classList.remove("is-on"));
+  stopsEl.querySelectorAll("[data-score]").forEach(t=>{t.textContent=""; t.classList.remove("has-score")});
+  STOPS.forEach((s,i)=>{
+    if (!s.rate) return;
+    const n = stopsEl.children[i].querySelector("[data-next]");
+    n.disabled = true; n.textContent = "Score it first";
+  });
+  dodges = 0;
+  no.textContent = excuses[0];
+  no.style.cssText = "";
+  no.className = "btn btn--ghost";
+  yes.style.transform = ""; yes.style.boxShadow = "";
+  render();
+  showAsk();
+}
+document.getElementById("reset").addEventListener("click", reset);
+document.getElementById("reset2").addEventListener("click", reset);
+
+/* ---------- personalise + restore ---------- */
+if (CONFIG.herName){
+  document.querySelector(".ask__title").innerHTML =
+    `${CONFIG.herName}, let's go find <em>the one</em>.`;
+}
+document.getElementById("meta").innerHTML =
+  `${CONFIG.dateLine} · <span>Red Line</span> → H St NE`;
+
+(async ()=>{
+  const saved = await load();
+  if (saved && saved.phase === "journey"){
+    state = saved;
+    document.getElementById("ask").style.display = "none";
+    document.getElementById("journey").classList.add("is-on");
+  }
+  render();
+})();
+</script>
+</body>
+</html>
