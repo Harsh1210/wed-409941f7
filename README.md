@@ -1,7 +1,7 @@
 # The Pork Bun Investigation — Round Two
 
 An interactive date invite for Erica, plus printable tickets.
-Date: Wednesday 12 August, 6:00 PM · Wheaton Metro → H Street NE, Washington DC.
+Date: Wednesday 12 August, 5:30 PM · NoMa–Gallaudet U → H Street NE, Washington DC.
 
 ## What's in here
 
@@ -33,7 +33,7 @@ the `<script>` in `index.html`:
     dateLine  The date shown under the itinerary heading.
     roundOne  Chinatown's score from the first hunt. Feeds the final scoreboard.
 
-The seven stops are the `STOPS` array directly below `CONFIG`. Each entry takes
+The six stops are the `STOPS` array directly below `CONFIG`. Each entry takes
 a time, name, address, one or more note paragraphs, the label for its button,
 and `rate: true` if that stop should ask for a 1–5 score.
 

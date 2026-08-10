@@ -214,8 +214,7 @@ body::before{
     <div class="plan">
       <p class="plan__label">The route</p>
       <ol class="plan__list">
-        <li class="plan__item"><b>6:00 · Wheaton Metro</b><br><span>I'll be waiting at the top of the escalator</span></li>
-        <li class="plan__item"><b>Red Line to NoMa–Gallaudet U</b><br><span>Half an hour underground, just talking</span></li>
+        <li class="plan__item"><b>5:30 · NoMa–Gallaudet U</b><br><span>I'll be waiting by the fare gates</span></li>
         <li class="plan__item"><b>Solid State Books</b><br><span>600 H St NE · we each find a book, then talk</span></li>
         <li class="plan__item"><b>Copycat Co.</b><br><span>1110 H St NE · the first bun</span></li>
         <li class="plan__item"><b>Toki Underground</b><br><span>1234 H St NE · the second</span></li>
@@ -256,7 +255,7 @@ body::before{
 
       <h2 class="display finale__title">So. Wednesday?</h2>
       <p class="finale__body">
-        Six o'clock at Wheaton. I'll be at the top of the escalator,
+        Half five at NoMa. I'll be by the fare gates,
         and I'll have been there a few minutes early. <strong>Say yes.</strong>
       </p>
       <div class="ask__buttons" style="margin-top:0;min-height:0">
@@ -284,43 +283,37 @@ const CONFIG = {
 /* ============================================== */
 
 const STOPS = [
-  { time:"6:00 PM · Meet", name:"Wheaton Station", where:"Red Line · Georgia Ave & Reedie Dr",
+  { time:"5:30 PM · Meet", name:"NoMa–Gallaudet U", where:"Red Line · M St NE entrance",
     notes:[
-      "Top of the escalator. It's 230 feet — the longest in the hemisphere — and takes about three minutes to ride down. That's a long time to stand next to someone you're glad to see. <em>I'm counting on it.</em>",
-      "I'll be early."
-    ], cta:"Board the train" },
+      "I'll be waiting by the fare gates, and I'll have been there a while. <em>That part isn't an accident.</em>",
+      "Then it's a twelve-minute walk south into H Street, which is exactly long enough to stop being nervous."
+    ], cta:"Walk into H Street" },
 
-  { time:"6:05 PM · Ride", name:"Red Line → NoMa–Gallaudet U", where:"~30 minutes · no transfers",
-    notes:[
-      "One straight shot, half an hour, nothing out the window but dark glass and our own reflections. So we'll talk.",
-      "I've been saving a few things for exactly this stretch."
-    ], cta:"Get off here" },
-
-  { time:"6:50 PM · Warm-up", name:"Solid State Books", where:"600 H St NE · 12 min walk from NoMa",
+  { time:"5:45 PM · Warm-up", name:"Solid State Books", where:"600 H St NE · 12 min walk from NoMa",
     notes:[
       "Before any eating — we each go find a book. Anything at all, whatever catches you. No rules, no budget, no overthinking it.",
       "Then we come back and <em>tell each other why</em>. I want to hear you talk about something you love. That's the whole reason for this stop."
     ], cta:"Head east on H" },
 
-  { time:"7:30 PM · Suspect one", name:"Copycat Co.", where:"1110 H St NE",
+  { time:"7:00 PM · Suspect one", name:"Copycat Co.", where:"1110 H St NE",
     notes:[
       "Low light, good music, better cocktails, and pork bao that people single out by name in their reviews.",
       "Chinatown set the bar at a 3 last round. <em>Let's see.</em>"
     ], cta:"Two blocks east", rate:true },
 
-  { time:"8:20 PM · Suspect two", name:"Toki Underground", where:"1234 H St NE",
+  { time:"7:50 PM · Suspect two", name:"Toki Underground", where:"1234 H St NE",
     notes:[
       "No sign out front, second floor, fifteen seats at a single counter. We'll be shoulder to shoulder whether we planned on it or not. <em>I planned on it.</em>",
       "Pork belly bao alongside the ramen it's famous for. The kitchen closes at 9:30, so this is the one stop we keep moving for."
     ], cta:"One more block", rate:true },
 
-  { time:"9:05 PM · Final boss", name:"Maketto", where:"1351 H St NE",
+  { time:"8:35 PM · Final boss", name:"Maketto", where:"1351 H St NE",
     notes:[
       "Cambodian-Taiwanese, and the bao platter is the one people describe as the best they've ever had. Big claim.",
       "Last word of the night. Whatever wins here, wins."
     ], cta:"Call it", rate:true },
 
-  { time:"10:15 PM · Optional", name:"Project Hail Mary + wine", where:"Couch · only if we've both still got it in us",
+  { time:"9:45 PM · Optional", name:"Project Hail Mary + wine", where:"Couch · only if we've both still got it in us",
     notes:[
       "This one's a maybe, and that's on purpose. Three stops and a lot of walking is a real evening on its own, and it's a work day tomorrow for both of us. <em>We take the call here, after the last bun</em> — not now.",
       "If we're in: wine open, lights low, feet up. A man wakes alone on a spaceship with no memory and has to save the world. If you fall asleep on me halfway through, I'm not going to complain.",
@@ -471,7 +464,7 @@ function buildFinale(){
 }
 
 document.getElementById("copy").addEventListener("click", ()=>{
-  const msg = "Wednesday. Yes. Six o'clock, Wheaton, top of the escalator — don't be too early.";
+  const msg = "Wednesday. Yes. Half five, NoMa, by the fare gates — don't be too early.";
   const done = ()=>{
     const c = document.getElementById("copied");
     c.classList.add("is-on");
