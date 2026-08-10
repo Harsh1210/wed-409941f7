@@ -276,7 +276,8 @@ body::before{
 const CONFIG = {
   herName: "",                                // e.g. "Maya" — leave blank to skip
   dateLine: "Wednesday, Aug 12",
-  roundOne: { name: "Chinatown", score: 3 }   // last hunt's best, carried onto the scoreboard
+  roundOne: { name: "Chinatown", score: 3 },  // last hunt's best, carried onto the scoreboard
+  walletUrl: ""                               // .pkpass link — blank hides the Wallet button entirely
 };
 /* ============================================== */
 
@@ -323,7 +324,7 @@ const STOPS = [
       "If we're in: wine open, lights low, feet up. A man wakes alone on a spaceship with no memory and has to save the world. If you fall asleep on me halfway through, I'm not going to complain.",
       "If we're out: I walk you home and we do it another night. No talking anyone into anything.",
       "Either way you're getting the paper tickets, not the ones that live on a phone. <em>You keep every stub you've ever been handed</em> — this one belongs in the collection. No date printed on it — it's good whenever you feel like using it."
-    ], cta:"Either way, that's the evening" }
+    ], cta:"Either way, that's the evening", wallet:true }
 ];
 
 /* ---------- state (persists in the artifact) ---------- */
@@ -350,6 +351,9 @@ async function load(){
 
 /* ---------- build ---------- */
 const stopsEl = document.getElementById("stops");
+/* Wallet passes only install on Apple devices — hide the button everywhere else
+   rather than hand an Android phone a link it can't open. */
+const IS_APPLE = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
 
 STOPS.forEach((s,i)=>{
   const li = document.createElement("li");
@@ -374,6 +378,7 @@ STOPS.forEach((s,i)=>{
       <div class="stop__foot">
         ${i>0 ? `<button class="btn btn--ghost btn--small" data-back>← Back</button>` : ""}
         <button class="btn btn--small" data-next ${s.rate?"disabled":""}>${s.rate?"Score it first":s.cta}</button>
+        ${s.wallet && CONFIG.walletUrl && IS_APPLE ? `<a class="btn btn--ghost btn--small" href="${CONFIG.walletUrl}">&#63743; Add ticket to Wallet</a>` : ""}
       </div>
     </div>`;
   stopsEl.appendChild(li);
