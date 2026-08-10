@@ -68,6 +68,7 @@ body::before{
 .plan{margin:32px 0 0;border:1px solid var(--surface-2);border-radius:var(--r);background:var(--surface);padding:22px}
 .plan__label{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sky);margin:0 0 18px}
 .plan__list{list-style:none;margin:0;padding:0}
+.plan__wallet{display:inline-block;margin-top:20px;text-decoration:none}
 .plan__item{position:relative;padding:0 0 16px 30px;font-size:14.5px}
 .plan__item:last-child{padding-bottom:0}
 .plan__item::before{content:"";position:absolute;left:5px;top:16px;bottom:-2px;width:3px;background:var(--sun);opacity:.55}
@@ -221,6 +222,7 @@ body::before{
         <li class="plan__item"><b>Maketto</b><br><span>1351 H St NE · the last word</span></li>
         <li class="plan__item"><b>Project Hail Mary + wine</b><br><span>Optional · we decide after the last bun</span></li>
       </ol>
+      <a class="btn btn--ghost btn--small plan__wallet" id="walletBtn" target="_blank" rel="noopener" hidden>Add your ticket to Wallet</a>
     </div>
 
     <div class="ask__buttons">
@@ -324,7 +326,7 @@ const STOPS = [
       "If we're in: wine open, lights low, feet up. A man wakes alone on a spaceship with no memory and has to save the world. If you fall asleep on me halfway through, I'm not going to complain.",
       "If we're out: I walk you home and we do it another night. No talking anyone into anything.",
       "Either way you're getting the paper tickets, not the ones that live on a phone. <em>You keep every stub you've ever been handed</em> — this one belongs in the collection. No date printed on it — it's good whenever you feel like using it."
-    ], cta:"Either way, that's the evening", wallet:true }
+    ], cta:"Either way, that's the evening" }
 ];
 
 /* ---------- state (persists in the artifact) ---------- */
@@ -351,8 +353,15 @@ async function load(){
 
 /* ---------- build ---------- */
 const stopsEl = document.getElementById("stops");
-/* ponytail: no device sniffing — the Pass2U page serves Apple and Google Wallet
+/* The ticket covers the whole evening, so the Wallet button lives on the opening
+   plan, not on any one stop. Blank walletUrl leaves it hidden.
+   ponytail: no device sniffing — the pass page serves Apple and Google Wallet
    off the same link and picks the right one itself. */
+if (CONFIG.walletUrl){
+  const wb = document.getElementById("walletBtn");
+  wb.href = CONFIG.walletUrl;
+  wb.hidden = false;
+}
 
 STOPS.forEach((s,i)=>{
   const li = document.createElement("li");
@@ -377,7 +386,6 @@ STOPS.forEach((s,i)=>{
       <div class="stop__foot">
         ${i>0 ? `<button class="btn btn--ghost btn--small" data-back>← Back</button>` : ""}
         <button class="btn btn--small" data-next ${s.rate?"disabled":""}>${s.rate?"Score it first":s.cta}</button>
-        ${s.wallet && CONFIG.walletUrl ? `<a class="btn btn--ghost btn--small" href="${CONFIG.walletUrl}" target="_blank" rel="noopener">Add ticket to Wallet</a>` : ""}
       </div>
     </div>`;
   stopsEl.appendChild(li);
