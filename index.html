@@ -277,7 +277,7 @@ const CONFIG = {
   herName: "",                                // e.g. "Maya" — leave blank to skip
   dateLine: "Wednesday, Aug 12",
   roundOne: { name: "Chinatown", score: 3 },  // last hunt's best, carried onto the scoreboard
-  walletUrl: ""                               // .pkpass link — blank hides the Wallet button entirely
+  walletUrl: "https://www.pass2u.net/p/dan-X0C8ogBk?openExternalBrowser=1"  // blank hides the Wallet button
 };
 /* ============================================== */
 
@@ -351,9 +351,8 @@ async function load(){
 
 /* ---------- build ---------- */
 const stopsEl = document.getElementById("stops");
-/* Wallet passes only install on Apple devices — hide the button everywhere else
-   rather than hand an Android phone a link it can't open. */
-const IS_APPLE = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+/* ponytail: no device sniffing — the Pass2U page serves Apple and Google Wallet
+   off the same link and picks the right one itself. */
 
 STOPS.forEach((s,i)=>{
   const li = document.createElement("li");
@@ -378,7 +377,7 @@ STOPS.forEach((s,i)=>{
       <div class="stop__foot">
         ${i>0 ? `<button class="btn btn--ghost btn--small" data-back>← Back</button>` : ""}
         <button class="btn btn--small" data-next ${s.rate?"disabled":""}>${s.rate?"Score it first":s.cta}</button>
-        ${s.wallet && CONFIG.walletUrl && IS_APPLE ? `<a class="btn btn--ghost btn--small" href="${CONFIG.walletUrl}">&#63743; Add ticket to Wallet</a>` : ""}
+        ${s.wallet && CONFIG.walletUrl ? `<a class="btn btn--ghost btn--small" href="${CONFIG.walletUrl}" target="_blank" rel="noopener">Add ticket to Wallet</a>` : ""}
       </div>
     </div>`;
   stopsEl.appendChild(li);
