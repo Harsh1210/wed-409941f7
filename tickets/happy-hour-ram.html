@@ -62,9 +62,13 @@ body{
 .bars{display:flex;gap:2px;align-items:flex-end;height:26px;width:1.06in;justify-content:center;overflow:hidden}
 .bars i{display:block;height:100%;background:#3d1526}
 .stubfoot{font-size:7pt;font-weight:700;letter-spacing:.26em;text-transform:uppercase}
+
+.cut{display:flex;align-items:center;gap:10px;margin:.3in 0;
+  font-size:7pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#c69d8b}
+.cut::before,.cut::after{content:"";flex:1;border-top:1.5px dashed #ecd9cf}
 </style></head><body>
 
-<div class="sheettop"><span>One ticket &middot; keep the stub</span><span>NoMa &middot; Washington DC</span></div>
+<div class="sheettop"><span>Two tickets &middot; keep both stubs</span><span>NoMa &middot; Washington DC</span></div>
 
 <div class="ticket">
   <div class="body">
@@ -99,6 +103,45 @@ body{
     <p class="stubno">No. 001</p>
     <p class="keep">Keep&nbsp;me</p>
     <div class="bars"><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:3px"></i></div>
+    <p class="stubfoot">Admit One</p>
+  </div>
+</div>
+
+<div class="cut">cut here</div>
+
+<div class="ticket">
+  <div class="body">
+    <div class="topline">
+      <span class="mark"><svg class="glass" viewBox="0 0 64 64" fill="none">
+        <path d="M11 15h42L32 38z" fill="currentColor"/>
+        <path d="M32 38v14" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        <path d="M20 54h24" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="44" cy="10" r="3.4" fill="currentColor" opacity=".85"/>
+      </svg></span>
+      <span class="series">Happy Hour &middot; Washington DC</span>
+      <span class="round">Tonight</span>
+    </div>
+
+    <div class="hero">
+      <p class="admit">Admit</p>
+      <h1 class="name">Harsh</h1>
+      <p class="tag">One drink &middot; no agenda &middot; no rush</p>
+    </div>
+
+    <div class="grid">
+      <div><span>Date</span><b>Tue 11 Aug</b></div>
+      <div><span>Call time</span><b>5:00 PM</b></div>
+      <div><span>Meet at</span><b>Starbucks, NoMa</b></div>
+    </div>
+
+    <p class="fine">Admit one &nbsp;&middot;&nbsp; Non-transferable &nbsp;&middot;&nbsp; First round's on the ticket</p>
+  </div>
+
+  <div class="stub">
+    <span class="notch top"></span><span class="notch bot"></span>
+    <p class="stubno">No. 002</p>
+    <p class="keep">Keep&nbsp;me</p>
+    <div class="bars"><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:1px"></i><i style="width:1px"></i><i style="width:2px"></i><i style="width:3px"></i><i style="width:2px"></i><i style="width:1px"></i><i style="width:3px"></i><i style="width:2px"></i></div>
     <p class="stubfoot">Admit One</p>
   </div>
 </div>
